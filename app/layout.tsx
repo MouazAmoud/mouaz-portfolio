@@ -14,9 +14,21 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Mouaz Amoud | AI Engineer Portfolio",
+  title: "Mouaz Amoud | AI Engineer",
   description:
-    "Portfolio of Mouaz Amoud, an AI engineer and Computer Engineering & Electronics double major focused on AI systems, automation, RAG pipelines, and research-driven machine learning."
+    "AI-focused Computer Engineering and Electronics double major building AI systems, automation workflows, RAG pipelines, and research-driven machine learning solutions.",
+  openGraph: {
+    title: "Mouaz Amoud | AI Engineer",
+    description:
+      "AI-focused Computer Engineering and Electronics double major building AI systems, automation workflows, RAG pipelines, and research-driven machine learning solutions.",
+    type: "website"
+  },
+  twitter: {
+    card: "summary",
+    title: "Mouaz Amoud | AI Engineer",
+    description:
+      "AI-focused Computer Engineering and Electronics double major building AI systems, automation workflows, RAG pipelines, and research-driven machine learning solutions."
+  }
 };
 
 export default function RootLayout({
