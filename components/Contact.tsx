@@ -1,42 +1,48 @@
-import Link from "next/link";
-import MotionSection from "@/components/MotionSection";
-import { contactLinks } from "@/lib/data";
+import { Download, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import ExternalLink from "@/components/ExternalLink";
+import SectionHeading from "@/components/SectionHeading";
+import { site } from "@/lib/site";
 
 export default function Contact() {
   return (
-    <MotionSection id="contact" className="section-space">
-      <div className="shell">
-        <div className="glass-card rounded-[2.25rem] border-white/8 p-8 shadow-glow sm:p-10 lg:p-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-[rgba(0,212,255,0.08)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-cyan">
-              Let&apos;s connect
-            </div>
-            <h2 className="mt-6 text-4xl font-semibold tracking-tight text-heading sm:text-5xl">
-              Open to AI, automation, research, and software engineering opportunities.
-            </h2>
-            <p className="mt-5 text-base leading-8 text-secondary sm:text-lg">
-              Mouaz is open to AI, automation, research, and software engineering opportunities.
-            </p>
+    <section id="contact" aria-labelledby="contact-title" className="section-space border-t border-divider">
+      <div className="shell grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <div>
+          <SectionHeading
+            id="contact-title"
+            title="Contact"
+            description="I'm open to internships and research opportunities in software engineering, computer engineering, and AI systems. Email is the best way to reach me."
+          />
+          <p className="mt-6 flex items-center gap-2 text-sm text-muted">
+            <MapPin size={15} aria-hidden="true" />
+            {site.location}
+          </p>
+        </div>
 
-            <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-              {contactLinks.map((link, index) => {
-                const Icon = link.icon;
-                return (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    target={link.href.startsWith("http") ? "_blank" : undefined}
-                    className={index === 0 ? "primary-button" : "secondary-button"}
-                  >
-                    <Icon size={18} />
-                    {link.label}
-                  </Link>
-                );
-              })}
-            </div>
+        <div className="card p-5 sm:p-6">
+          <a
+            href={`mailto:${site.email}`}
+            className="group flex items-center gap-3 break-all font-display text-lg font-semibold text-heading transition-colors hover:text-cyan sm:text-xl"
+          >
+            <Mail size={20} aria-hidden="true" className="shrink-0 text-cyan" />
+            {site.email}
+          </a>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <ExternalLink href={site.linkedin} className="secondary-button">
+              <Linkedin size={17} aria-hidden="true" />
+              LinkedIn
+            </ExternalLink>
+            <ExternalLink href={site.github} className="secondary-button">
+              <Github size={17} aria-hidden="true" />
+              GitHub
+            </ExternalLink>
+            <a href={site.cvPath} download={site.cvFileName} className="secondary-button">
+              <Download size={17} aria-hidden="true" />
+              Download CV (PDF)
+            </a>
           </div>
         </div>
       </div>
-    </MotionSection>
+    </section>
   );
 }

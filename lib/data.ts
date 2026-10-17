@@ -1,35 +1,15 @@
-import {
-  Award,
-  Binary,
-  Bot,
-  BrainCircuit,
-  BriefcaseBusiness,
-  Database,
-  Globe,
-  Languages,
-  Layers3,
-  Lightbulb,
-  Microscope,
-  Network,
-  Rocket,
-  ShieldCheck,
-  Users
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-
 export type NavItem = {
   label: string;
   href: string;
 };
 
 export type Highlight = {
-  label: string;
   value: string;
+  label: string;
 };
 
-export type AboutPillar = {
+export type FocusArea = {
   title: string;
-  icon: LucideIcon;
   description: string;
 };
 
@@ -38,75 +18,124 @@ export type EducationItem = {
   institution: string;
   dates: string;
   details: string[];
+  note?: string;
 };
 
-export type ExperienceItem = {
-  role: string;
-  company: string;
+export type Role = {
+  title: string;
   dates: string;
   bullets: string[];
 };
 
+export type ExperienceItem = {
+  organization: string;
+  roles: Role[];
+  context?: string;
+  tech?: string[];
+  caseStudy?: { href: string; label: string };
+};
+
+export type ExperienceGroup = {
+  label: string;
+  accent: "cyan" | "violet";
+  items: ExperienceItem[];
+};
+
+export type ProjectDetail = {
+  label: string;
+  value: string;
+};
+
 export type ProjectItem = {
+  id: string;
   title: string;
-  type: string;
-  dates?: string;
-  description: string[];
-  tags: string[];
+  subtitle: string;
+  context: string;
+  dates: string;
+  problemLabel?: string;
+  problem: string;
+  contributions: string[];
+  outcome?: string;
+  tech: string[];
+  pipeline?: string[];
+  details?: ProjectDetail[];
+  note?: string;
+};
+
+export type LeadershipRole = {
+  title: string;
+  status?: string;
+  bullets?: string[];
 };
 
 export type LeadershipItem = {
-  title: string;
   organization: string;
   dates: string;
-  description: string;
-  icon: LucideIcon;
+  roles: LeadershipRole[];
+  bullets?: string[];
+  stat?: Highlight;
+  featured?: boolean;
+};
+
+export type AwardItem = {
+  title: string;
+  result: string;
+  year?: string;
+  note?: string;
+};
+
+export type AwardGroup = {
+  label: string;
+  items: AwardItem[];
 };
 
 export type SkillGroup = {
   category: string;
-  icon: LucideIcon;
   items: string[];
 };
 
 export const navItems: NavItem[] = [
-  { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Education", href: "#education" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Leadership", href: "#leadership" },
   { label: "Skills", href: "#skills" },
+  { label: "Leadership", href: "#leadership" },
   { label: "Contact", href: "#contact" }
 ];
 
-export const heroHighlights: Highlight[] = [
-  { label: "CGPA", value: "4.0/4.0" },
-  { label: "Scholarship", value: "Merit Scholar" },
-  { label: "SAT", value: "1510" },
-  { label: "IEEEXtreme", value: "Top 8 in Lebanon" }
+export const currentActivities: string[] = [
+  "Research Assistant, Wireless Communications, LAU",
+  "Engineering School Representative, LAU Student Council"
 ];
 
-export const aboutPillars: AboutPillar[] = [
+export const heroHighlights: Highlight[] = [
+  { value: "4.0/4.0", label: "CGPA, LAU" },
+  { value: "Top 5%", label: "Electronics cohort, Lebanese University" },
+  { value: "2nd in Lebanon", label: "Synopsys Microelectronics Olympiad" },
+  { value: "8th in Lebanon", label: "IEEEXtreme 18.0" }
+];
+
+export const aboutParagraphs: string[] = [
+  "Most of my work sits where software meets real systems. At Interphase I connected IoT cameras and devices to computer-vision inference. At ARK Energy I built retrieval pipelines that automated document-heavy compliance work. At LAU I work as a research assistant in wireless communications and tutor students in Circuits and Calculus.",
+  "Outside technical work, I represent engineering students on the LAU Student Council, serve in the IEEE LAU AI Club, and have been active in Lebanon Scouts since 2018."
+];
+
+export const focusAreas: FocusArea[] = [
   {
-    title: "AI Systems",
-    icon: Bot,
-    description: "Designing practical LLM-based tools, agents, and retrieval workflows."
+    title: "Software & backend systems",
+    description: "Python and FastAPI services, REST and WebSocket APIs, PostgreSQL."
   },
   {
-    title: "Automation",
-    icon: Rocket,
-    description: "Building systems that reduce manual effort through structured pipelines."
+    title: "AI systems",
+    description: "Retrieval pipelines, multi-agent orchestration, and computer vision."
   },
   {
-    title: "Research",
-    icon: Microscope,
-    description: "Applying machine learning to research-driven environmental and applied AI problems."
+    title: "IoT & systems integration",
+    description: "Linking cameras and devices to inference and automated workflows."
   },
   {
-    title: "Leadership",
-    icon: Users,
-    description: "Combining technical depth with team coordination, workshops, and execution."
+    title: "Electronics & wireless research",
+    description: "A second degree in Electronics; MATLAB analysis of relay systems."
   }
 ];
 
@@ -114,157 +143,236 @@ export const educationItems: EducationItem[] = [
   {
     degree: "B.E. in Computer Engineering",
     institution: "Lebanese American University (LAU)",
-    dates: "Sep. 2024 – May 2028 Expected",
+    dates: "Sep 2024 – May 2028 (expected)",
     details: [
-      "Merit Scholarship Recipient",
-      "CGPA: 4.0/4.0",
-      "SAT Score: 1510",
-      "Ranked 1st among 269 students in Grade 12"
-    ]
+      "CGPA 4.0/4.0",
+      "Merit Scholarship recipient",
+      "Relevant coursework: Data Structures & Algorithms"
+    ],
+    note: "Before LAU: SAT 1510 · Ranked 1st of 269 students in Grade 12"
   },
   {
-    degree: "B.S. in Electronics",
+    degree: "B.S. in Electronics (double major)",
     institution: "Lebanese University",
-    dates: "Sep. 2024 – May 2027 Expected",
-    details: ["Double Major", "Ranked in the Top 15% of the cohort"]
+    dates: "Sep 2024 – May 2027 (expected)",
+    details: ["Ranked in the top 5% of the cohort"]
   }
 ];
 
-export const experienceItems: ExperienceItem[] = [
+export const experienceGroups: ExperienceGroup[] = [
   {
-    role: "AI Automation Engineer Intern",
-    company: "ARK Energy",
-    dates: "2025",
-    bullets: [
-      "Built AI-powered automation systems for document understanding, compliance checking, and structured report generation using LLM-based workflows and RAG.",
-      "Engineered end-to-end pipelines for PDF and Excel processing, including ingestion, parsing, chunking, embeddings, retrieval, and response generation.",
-      "Designed retrieval and storage systems using PostgreSQL and pgvector for vector search, traceability, and structured outputs.",
-      "Built and automated workflows using n8n, integrating APIs and AI services to reduce manual effort and streamline processes."
+    label: "Industry",
+    accent: "cyan",
+    items: [
+      {
+        organization: "Interphase",
+        roles: [
+          {
+            title: "AI & IoT Solutions Engineer Intern",
+            dates: "Jul 2026 – Aug 2026",
+            bullets: [
+              "Built pipelines linking IoT cameras and devices to computer-vision inference and automated workflows.",
+              "Developed Python/FastAPI services for device communication, image processing, and data handling, designed as reusable integration layers.",
+              "Worked with camera snapshots and structured AI-generated outputs, integrating them with APIs into workflows driven by real-world device data."
+            ]
+          }
+        ],
+        tech: ["Python", "FastAPI", "Computer Vision", "Image Processing", "IoT Integration"]
+      },
+      {
+        organization: "ARK Energy",
+        roles: [
+          {
+            title: "AI Automation Engineer Intern",
+            dates: "Dec 2025 – May 2026",
+            bullets: [
+              "Built RAG pipelines for PDF and Excel documents that automated compliance checks and reporting, cutting a manual process from about three days to about one hour.",
+              "Designed a PostgreSQL/pgvector retrieval layer with pluggable vector stores and configurable chunking.",
+              "Worked on structured processing and validation of AI-generated results."
+            ]
+          }
+        ],
+        tech: ["Python", "FastAPI", "PostgreSQL", "pgvector", "Streamlit", "n8n"],
+        caseStudy: { href: "#project-ark", label: "Read the case study" }
+      }
+    ]
+  },
+  {
+    label: "Research & Academic",
+    accent: "violet",
+    items: [
+      {
+        organization: "Lebanese American University",
+        context: "Supervised by Dr. Chadi Abou Rjeily",
+        roles: [
+          {
+            title: "Research Assistant, Wireless Communications",
+            dates: "Aug 2026 – Present",
+            bullets: [
+              "Analyzing the outage probability of full-power, hybrid-powered, and energy-harvesting relay systems.",
+              "Developing MATLAB simulations to validate theoretical results and compare relay strategies and placements."
+            ]
+          }
+        ],
+        tech: ["MATLAB", "Wireless Communications"]
+      },
+      {
+        organization: "Lebanese American University",
+        roles: [
+          {
+            title: "Chair Department Assistant",
+            dates: "Sep 2026 – Present",
+            bullets: ["Review Final Year Project reports against requirements."]
+          },
+          {
+            title: "Teaching Assistant (University-Appointed Tutor)",
+            dates: "Sep 2025 – Present",
+            bullets: ["Tutor students in Circuits and Calculus through one-on-one and group sessions."]
+          }
+        ]
+      }
     ]
   }
 ];
 
 export const projectItems: ProjectItem[] = [
   {
-    title: "AURA: Augmented University Reality Assistant",
-    type: "Vertical Integrated Project, LAU",
-    dates: "Aug. 2025 – Present",
-    description: [
-      "Developed a multi-agent AI system using LangGraph for content generation, Q&A, and contextual retrieval.",
-      "Built a modular microservice architecture using FastAPI and WebSockets for real-time communication.",
-      "Integrated multimodal components including speech-to-text and computer vision into a unified assistant system."
+    id: "project-ark",
+    title: "Document & Compliance Automation",
+    subtitle: "Retrieval-augmented pipeline for PDF and Excel documents",
+    context: "Internship project · ARK Energy",
+    dates: "Dec 2025 – May 2026",
+    problem:
+      "Compliance checks and reporting over PDF and Excel documents were done by hand, a process that took about three days.",
+    contributions: [
+      "Built RAG pipelines that parse and chunk documents, embed and retrieve relevant passages, and return answers with citations back to the source.",
+      "Designed the retrieval layer on PostgreSQL with pgvector, with pluggable vector stores and configurable chunking.",
+      "Worked on structured processing and validation of AI-generated results."
     ],
-    tags: ["LangGraph", "FastAPI", "WebSockets", "AI Agents", "Multimodal AI", "RAG"]
+    outcome: "Cut a manual process from about 3 days to about 1 hour.",
+    tech: ["Python", "FastAPI", "PostgreSQL", "pgvector", "LLMs", "Streamlit"],
+    pipeline: ["Parse", "Chunk", "Embed", "Retrieve", "Cited answer"],
+    note: "Described at a general level. Company documents, data, and code are confidential."
   },
   {
-    title: "ML-Driven WEFE Stress Index & Early-Warning System",
-    type: "Research Paper",
-    dates: "Aug. 2025 – Present",
-    description: [
-      "Developed machine learning models including Linear Regression and Random Forest for environmental stress prediction.",
-      "Built a data pipeline integrating satellite-based features including NDVI, NDTI, rainfall, and VIIRS to construct a composite WEFE index."
+    id: "project-aura",
+    title: "AURA: Augmented University Reality Assistant",
+    subtitle: "AI-powered university teaching assistant",
+    context: "Vertical Integrated Project · LAU",
+    dates: "Aug 2025 – May 2026",
+    problemLabel: "Overview",
+    problem:
+      "An AI “professor” for the classroom: it delivers lecture content, answers questions, and responds to what happens in the room.",
+    contributions: [
+      "Built a multi-agent system in LangGraph covering lecture delivery, Q&A, slides, and retrieval (RAG).",
+      "Streamed responses to clients in real time over WebSockets.",
+      "Integrated Whisper speech-to-text and computer-vision features (hand-raise detection and attendance) through FastAPI services."
     ],
-    tags: [
-      "Machine Learning",
-      "Random Forest",
-      "Linear Regression",
-      "Environmental AI",
-      "Data Pipelines",
-      "Satellite Data"
+    tech: ["LangGraph", "FastAPI", "WebSockets", "Whisper", "Computer Vision", "RAG"],
+    details: [
+      { label: "Orchestration", value: "LangGraph multi-agent graph: lecture, Q&A, slides, retrieval" },
+      { label: "Real-time", value: "WebSocket streaming of responses" },
+      { label: "Speech", value: "Whisper speech-to-text" },
+      { label: "Vision", value: "Hand-raise detection and attendance" },
+      { label: "Services", value: "Modular FastAPI services connecting the components" }
     ]
   },
   {
-    title: "AI Automation & RAG Systems",
-    type: "Technical Focus Area",
-    description: [
-      "Experience building LLM-powered automation workflows, retrieval pipelines, vector search systems, and structured document processing systems.",
-      "Focused on transforming unstructured documents into traceable, structured, and useful outputs."
+    id: "project-wefe",
+    title: "WEFE Stress Early-Warning System",
+    subtitle: "Machine learning on satellite and environmental data",
+    context: "Machine learning project · Completed",
+    dates: "Aug 2025 – Dec 2025",
+    problemLabel: "Goal",
+    problem:
+      "Forecast WEFE stress from satellite-derived environmental indicators to support early warning.",
+    contributions: [
+      "Built a data pipeline combining NDVI, NDTI, rainfall, and VIIRS indicators into a composite WEFE stress index.",
+      "Trained Linear Regression and Random Forest models for stress forecasting."
     ],
-    tags: ["RAG", "LLMs", "PostgreSQL", "pgvector", "n8n", "PDF Processing", "Excel Automation"]
-  }
-];
-
-export const leadershipItems: LeadershipItem[] = [
-  {
-    title: "Vice President, AI Club",
-    organization: "IEEE LAU Student Branch",
-    dates: "2024 – Present",
-    description: "Led technical workshops and AI-focused sessions promoting hands-on system-building skills.",
-    icon: BrainCircuit
-  },
-  {
-    title: "Leader, Secretary, and Treasurer",
-    organization: "Lebanon Scouts",
-    dates: "2018 – Present",
-    description: "Managed a team of 40 members, including planning, execution, budgeting, and logistics.",
-    icon: ShieldCheck
-  },
-  {
-    title: "IEEEXtreme 18.0",
-    organization: "Global Competitive Programming Contest",
-    dates: "Sep. 2024 – Nov. 2024",
-    description: "Ranked 8th in Lebanon in a global competitive programming contest.",
-    icon: Award
+    tech: ["Random Forest", "Linear Regression", "Satellite Data", "Data Pipelines"]
   }
 ];
 
 export const skillGroups: SkillGroup[] = [
   {
     category: "Programming",
-    icon: Binary,
-    items: ["Python", "Java", "JavaScript", "SQL", "Git", "GitHub"]
+    items: ["Python", "C++", "Java", "JavaScript", "SQL", "MATLAB"]
   },
   {
-    category: "AI & LLM Systems",
-    icon: Bot,
-    items: ["RAG Systems", "AI Agents", "LangGraph", "OpenAI API", "Vector Databases"]
+    category: "AI & Machine Learning",
+    items: ["Machine Learning", "Computer Vision", "RAG", "LLM Agents", "LangGraph", "OpenAI API", "Vector Databases"]
   },
   {
-    category: "Backend & APIs",
-    icon: BriefcaseBusiness,
-    items: ["FastAPI", "REST APIs", "WebSockets", "Microservices"]
+    category: "Backend & Data",
+    items: ["FastAPI", "REST APIs", "WebSockets", "Microservices", "PostgreSQL", "pgvector", "Prisma", "Data Pipelines"]
   },
   {
-    category: "Databases",
-    icon: Database,
-    items: ["PostgreSQL", "Prisma", "pgvector"]
-  },
-  {
-    category: "Automation",
-    icon: Network,
-    items: ["n8n", "AI-Assisted Workflows", "Claude Code", "OpenAI Codex"]
-  },
-  {
-    category: "Systems",
-    icon: Layers3,
-    items: ["Data Pipelines", "System Integration", "Debugging"]
-  },
-  {
-    category: "Soft Skills",
-    icon: Lightbulb,
-    items: ["Leadership", "Teamwork", "Communication", "Event Planning"]
+    category: "Development Tools",
+    items: ["Git", "GitHub", "Streamlit", "n8n"]
   },
   {
     category: "Languages",
-    icon: Languages,
-    items: ["Arabic Native", "English C1", "French C1"]
+    items: ["Arabic (native)", "English (C1)", "French (C1)"]
   }
 ];
 
-export const contactLinks = [
+export const leadershipItems: LeadershipItem[] = [
   {
-    label: "Email Me",
-    href: "mailto:mouaz.amoud@lau.edu",
-    icon: Globe
+    organization: "LAU Student Council",
+    dates: "2026 – 2027",
+    featured: true,
+    roles: [{ title: "Engineering School Representative" }],
+    stat: { value: "272", label: "votes, direct student election" },
+    bullets: [
+      "Elected by direct student vote, securing one of three Engineering School Representative seats.",
+      "Represent engineering students in council discussions and decisions, advocating for their academic and campus-life concerns."
+    ]
   },
   {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/mouaz-amoud-0b9aa62b1",
-    icon: Users
+    organization: "IEEE LAU Student Branch, AI Club",
+    dates: "2024 – Present",
+    roles: [
+      { title: "Treasurer", status: "Current" },
+      {
+        title: "Vice President",
+        status: "Previously",
+        bullets: ["Led AI workshops and co-organized the IEEE MENACOMM 2025 conference (about 100 attendees)."]
+      }
+    ]
   },
   {
-    label: "Download CV",
-    href: "/Mouaz-Amoud-CV.pdf",
-    icon: Award
+    organization: "Lebanon Scouts",
+    dates: "2018 – Present",
+    roles: [{ title: "Leader, Secretary, and Treasurer" }],
+    bullets: [
+      "Lead a 40-member Scout group, coordinating activities and logistics.",
+      "Manage budgets and financial records.",
+      "Support member development and team operations.",
+      "Earned the Wood Badge in 2026."
+    ]
+  }
+];
+
+export const awardGroups: AwardGroup[] = [
+  {
+    label: "Technical",
+    items: [
+      {
+        title: "Synopsys International Microelectronics Olympiad",
+        result: "2nd Place in Lebanon",
+        year: "2026"
+      },
+      {
+        title: "IEEEXtreme 18.0",
+        result: "8th in Lebanon",
+        year: "2024",
+        note: "24-hour global competitive programming contest"
+      }
+    ]
+  },
+  {
+    label: "Leadership",
+    items: [{ title: "Leader of the Year", result: "Scouts" }]
   }
 ];

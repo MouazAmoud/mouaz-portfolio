@@ -1,18 +1,17 @@
 type SectionHeadingProps = {
-  eyebrow: string;
+  id: string;
   title: string;
-  description: string;
+  description?: string;
 };
 
-export default function SectionHeading({ eyebrow, title, description }: SectionHeadingProps) {
+export default function SectionHeading({ id, title, description }: SectionHeadingProps) {
   return (
-    <div className="max-w-3xl">
-      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-purple/30 bg-[rgba(124,58,237,0.10)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-purple">
-        <span className="h-1.5 w-1.5 rounded-full bg-purple" />
-        {eyebrow}
-      </div>
-      <h2 className="text-3xl font-semibold tracking-tight text-heading sm:text-4xl">{title}</h2>
-      <p className="mt-4 text-base leading-7 text-secondary sm:text-lg">{description}</p>
+    <div className="max-w-2xl">
+      <div className="mb-4 h-px w-10 bg-cyan" aria-hidden="true" />
+      <h2 id={id} className="text-2xl font-semibold tracking-tight text-heading sm:text-3xl">
+        {title}
+      </h2>
+      {description ? <p className="mt-3 text-base leading-7 text-secondary">{description}</p> : null}
     </div>
   );
 }

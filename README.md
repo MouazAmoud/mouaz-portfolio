@@ -1,43 +1,42 @@
 # Mouaz Amoud Portfolio
 
-One-page personal portfolio built with Next.js, TypeScript, Tailwind CSS, Framer Motion, and `lucide-react`.
+One-page personal portfolio built with Next.js 14 (App Router), TypeScript, Tailwind CSS, and `lucide-react`. Every route is statically generated.
 
 ## Local Development
 
-1. Install dependencies:
-
 ```bash
 npm install
+npm run dev        # http://localhost:3000
 ```
 
-2. Start the development server:
+## Checks
 
 ```bash
-npm run dev
+npx tsc --noEmit   # type check
+npm run lint       # ESLint (next/core-web-vitals)
+npm run build      # production build
 ```
 
-3. Open `http://localhost:3000`.
+## Editing Content
 
-## Production Build
+- `lib/site.ts`: name, site URL, headline, email, LinkedIn, GitHub, CV path. Metadata, robots, sitemap, and all contact links read from here.
+- `lib/data.ts`: every section's content (experience, projects, skills, leadership, awards). Components only render this data.
 
-Run the production build locally with:
+Keep the content consistent with the downloadable CV.
 
-```bash
-npm run build
-```
-
-## Asset Placement
+## Assets
 
 - Profile image: `public/profile.jpg`
-- CV PDF: `public/Mouaz-Amoud-CV.pdf`
+- CV PDF: `public/Mouaz-Amoud-CV.pdf` (replace the file and keep the name so links stay valid)
+- Icons: `app/favicon.ico`, `app/icon.png` (192px), `app/apple-icon.png` (180px)
+- Social preview: `app/opengraph-image.png` and `app/twitter-image.png` (1200×630), with `.alt.txt` files for alt text
+- Google Search Console verification: `public/googlefc7d8761fe5d5a9a.html`
 
-The UI includes a fallback avatar if `public/profile.jpg` is missing.
+## Design Notes
 
-## Deploy to Vercel
+- Colour tokens live in `tailwind.config.ts`. `muted` and `violet` are the text-safe variants (WCAG AA). `purple` is reserved for borders and markers.
+- The only motion is a CSS scroll-driven reveal (`.reveal` in `app/globals.css`). It runs only where `animation-timeline` is supported and the user has not requested reduced motion, so content is always visible without JavaScript.
 
-1. Push the project to a Git repository.
-2. Import the repository into Vercel.
-3. Keep the default framework detection as `Next.js`.
-4. Run the deployment. Vercel will use the `npm run build` command automatically.
+## Deployment
 
-No extra environment variables are required for this portfolio.
+Vercel deploys `main` automatically using its default Next.js settings. No environment variables are required.

@@ -1,43 +1,34 @@
-import MotionSection from "@/components/MotionSection";
 import SectionHeading from "@/components/SectionHeading";
 import { skillGroups } from "@/lib/data";
 
 export default function Skills() {
   return (
-    <MotionSection id="skills" className="section-space">
+    <section id="skills" aria-labelledby="skills-title" className="section-space border-t border-divider">
       <div className="shell">
-        <SectionHeading
-          eyebrow="Skills"
-          title="A practical stack for AI engineering, backend systems, and automation."
-          description="Grouped to stay scannable and focused on capability rather than keyword density."
-        />
+        <SectionHeading id="skills-title" title="Technical Skills" />
 
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {skillGroups.map((group) => {
-            const Icon = group.icon;
-            return (
-              <article key={group.category} className="glass-card rounded-[2rem] border-white/8 p-6">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan/25 bg-[rgba(0,212,255,0.07)] text-cyan">
-                    <Icon size={18} />
-                  </div>
-                  <h3 className="text-lg font-semibold text-heading">{group.category}</h3>
-                </div>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-secondary"
-                    >
+        <dl className="card mt-10 divide-y divide-divider">
+          {skillGroups.map((group) => (
+            <div key={group.category} className="grid gap-2 px-5 py-4 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-6 sm:px-6">
+              <dt className="label pt-0.5">{group.category}</dt>
+              <dd className="text-sm leading-6 text-body sm:text-[0.95rem]">
+                <ul className="flex flex-wrap gap-x-1 gap-y-1">
+                  {group.items.map((item, index) => (
+                    <li key={item}>
                       {item}
-                    </span>
+                      {index < group.items.length - 1 ? (
+                        <span aria-hidden="true" className="text-muted">
+                          ,
+                        </span>
+                      ) : null}
+                    </li>
                   ))}
-                </div>
-              </article>
-            );
-          })}
-        </div>
+                </ul>
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
-    </MotionSection>
+    </section>
   );
 }

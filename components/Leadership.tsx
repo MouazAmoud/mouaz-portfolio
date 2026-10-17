@@ -1,62 +1,103 @@
-import { Crown } from "lucide-react";
-import MotionSection from "@/components/MotionSection";
 import SectionHeading from "@/components/SectionHeading";
-import { leadershipItems } from "@/lib/data";
+import { awardGroups, leadershipItems } from "@/lib/data";
 
 export default function Leadership() {
   return (
-    <MotionSection id="leadership" className="section-space">
+    <section id="leadership" aria-labelledby="leadership-title" className="section-space border-t border-divider">
       <div className="shell">
         <SectionHeading
-          eyebrow="Leadership & Awards"
-          title="Leadership built alongside execution, teaching, and competitive performance."
-          description="A track record of leading communities, managing teams, and contributing to technical culture while maintaining strong academic and project output."
+          id="leadership-title"
+          title="Leadership & Recognition"
+          description="Elected representation, student-branch leadership, and long-term service in Scouting."
         />
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="grid gap-5">
-            {leadershipItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <article key={item.title} className="glass-card rounded-[2rem] border-white/8 p-6">
-                  <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="flex gap-4">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan/30 bg-[rgba(0,212,255,0.08)] text-cyan">
-                        <Icon size={20} />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-heading">{item.title}</h3>
-                        <p className="mt-1 text-sm text-body">{item.organization}</p>
-                      </div>
-                    </div>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-muted">
-                      {item.dates}
-                    </span>
+        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
+          <div className="space-y-4">
+            <h3 className="label">Leadership</h3>
+            {leadershipItems.map((item) => (
+              <article
+                key={item.organization}
+                className={`card reveal p-5 sm:p-6 ${item.featured ? "border-l-2 border-l-purple" : ""}`}
+              >
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                  <h4 className="text-lg font-semibold text-heading">{item.organization}</h4>
+                  <p className="shrink-0 font-mono text-xs text-muted">{item.dates}</p>
+                </div>
+
+                <ul className="mt-2 space-y-3">
+                  {item.roles.map((role) => (
+                    <li key={role.title}>
+                      <p className="flex flex-wrap items-center gap-2 text-sm font-medium text-body">
+                        {role.title}
+                        {role.status ? (
+                          <span
+                            className={`rounded px-1.5 py-0.5 font-mono text-[0.7rem] uppercase tracking-wider ${
+                              role.status === "Current" ? "bg-cyan/10 text-cyan" : "bg-raised text-muted"
+                            }`}
+                          >
+                            {role.status}
+                          </span>
+                        ) : null}
+                      </p>
+                      {role.bullets ? (
+                        <ul className="mt-1.5 space-y-1 text-sm leading-6 text-secondary">
+                          {role.bullets.map((bullet) => (
+                            <li key={bullet}>{bullet}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+
+                {item.stat || item.bullets ? (
+                  <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
+                    {item.stat ? (
+                      <p className="shrink-0">
+                        <span className="block font-display text-3xl font-semibold text-heading">{item.stat.value}</span>
+                        <span className="block max-w-[9rem] text-xs leading-5 text-muted">{item.stat.label}</span>
+                      </p>
+                    ) : null}
+                    {item.bullets ? (
+                      <ul className="space-y-1.5 text-sm leading-6 text-secondary">
+                        {item.bullets.map((bullet) => (
+                          <li key={bullet} className="flex gap-3">
+                            <span aria-hidden="true" className="mt-[0.6rem] h-1 w-1 shrink-0 rounded-full bg-muted" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </div>
-                  <p className="mt-5 text-sm leading-7 text-secondary">{item.description}</p>
-                </article>
-              );
-            })}
+                ) : null}
+              </article>
+            ))}
           </div>
 
-          <aside className="glass-card rounded-[2rem] border-white/8 p-7 shadow-violet">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-purple/35 bg-[rgba(124,58,237,0.12)] text-purple">
-              <Crown size={24} />
+          <div>
+            <h3 className="label">Awards & Recognition</h3>
+            <div className="mt-4 space-y-6">
+              {awardGroups.map((group) => (
+                <div key={group.label}>
+                  <h4 className="font-mono text-xs text-violet">{group.label}</h4>
+                  <ul className="mt-2 divide-y divide-divider border-y border-divider">
+                    {group.items.map((award) => (
+                      <li key={award.title} className="reveal flex gap-4 py-4">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-semibold text-heading">{award.title}</p>
+                          <p className="mt-0.5 text-sm text-cyan">{award.result}</p>
+                          {award.note ? <p className="mt-1 text-xs leading-5 text-muted">{award.note}</p> : null}
+                        </div>
+                        {award.year ? <p className="shrink-0 font-mono text-xs text-muted">{award.year}</p> : null}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-            <p className="mt-6 text-xs uppercase tracking-[0.22em] text-purple">Highlighted Achievement</p>
-            <h3 className="mt-3 text-3xl font-semibold text-heading">Leader of the Year</h3>
-            <p className="mt-4 text-sm leading-7 text-secondary">
-              Recognition earned through sustained leadership, operational discipline, and consistent contribution to team outcomes.
-            </p>
-            <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-sm text-body">Leadership profile</p>
-              <p className="mt-2 text-sm leading-7 text-secondary">
-                Built around mentoring, organizing, and delivering results across technical and community settings.
-              </p>
-            </div>
-          </aside>
+          </div>
         </div>
       </div>
-    </MotionSection>
+    </section>
   );
 }

@@ -1,55 +1,115 @@
-import MotionSection from "@/components/MotionSection";
+import { ChevronDown } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
+import TechList from "@/components/TechList";
 import { projectItems } from "@/lib/data";
 
 export default function Projects() {
   return (
-    <MotionSection id="projects" className="section-space">
+    <section id="projects" aria-labelledby="projects-title" className="section-space border-t border-divider">
       <div className="shell">
         <SectionHeading
-          eyebrow="Projects & Research"
-          title="AI systems work spanning agents, retrieval, multimodal pipelines, and ML research."
-          description="Selected work across academic projects, research initiatives, and technical focus areas. Public links are intentionally omitted where work is private or still in progress."
+          id="projects-title"
+          title="Selected Projects"
+          description="What each project set out to solve, what I built, and the result where one was measured."
         />
 
-        <div className="mt-10 grid gap-6 xl:grid-cols-3">
+        <div className="mt-12 space-y-6">
           {projectItems.map((project) => (
             <article
-              key={project.title}
-              className="group glass-card flex h-full flex-col rounded-[2rem] border-white/8 p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan/30 hover:shadow-glow"
+              key={project.id}
+              id={project.id}
+              aria-labelledby={`${project.id}-title`}
+              className="card reveal scroll-mt-20 p-5 transition-colors duration-200 hover:border-divider-strong sm:p-8"
             >
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                <p className="label text-violet">{project.context}</p>
+                <p className="shrink-0 font-mono text-xs text-muted">{project.dates}</p>
+              </div>
+
+              <h3 id={`${project.id}-title`} className="mt-3 text-xl font-semibold tracking-tight text-heading sm:text-2xl">
+                {project.title}
+              </h3>
+              <p className="mt-1 text-sm text-secondary">{project.subtitle}</p>
+
+              <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-10">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.22em] text-purple">{project.type}</p>
-                  <h3 className="mt-3 text-2xl font-semibold text-heading">{project.title}</h3>
+                  <h4 className="label">{project.problemLabel ?? "Problem"}</h4>
+                  <p className="mt-2 text-sm leading-6 text-body sm:text-[0.95rem] sm:leading-7">{project.problem}</p>
+
+                  {project.outcome ? (
+                    <div className="mt-5 rounded-lg border border-cyan/30 bg-cyan/[0.06] px-4 py-3">
+                      <h4 className="label text-cyan">Outcome</h4>
+                      <p className="mt-1 text-sm font-medium text-heading">{project.outcome}</p>
+                    </div>
+                  ) : null}
                 </div>
-                {project.dates ? (
-                  <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-muted">
-                    {project.dates}
-                  </span>
-                ) : null}
+
+                <div>
+                  <h4 className="label">What I built</h4>
+                  <ul className="mt-2 space-y-2 text-sm leading-6 text-secondary sm:text-[0.95rem] sm:leading-7">
+                    {project.contributions.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span aria-hidden="true" className="mt-[0.6rem] h-1 w-1 shrink-0 rounded-full bg-cyan" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
-              <div className="mt-6 space-y-4 text-sm leading-7 text-secondary">
-                {project.description.map((line) => (
-                  <p key={line}>{line}</p>
-                ))}
-              </div>
+              <TechList items={project.tech} className="mt-6" />
 
-              <div className="mt-8 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-purple/35 bg-[rgba(124,58,237,0.10)] px-3 py-1 text-xs font-medium text-body"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              {project.pipeline || project.details || project.note ? (
+                <details className="group mt-6 border-t border-divider pt-4">
+                  <summary className="inline-flex cursor-pointer list-none items-center gap-2 rounded text-sm font-medium text-cyan [&::-webkit-details-marker]:hidden">
+                    <ChevronDown
+                      size={16}
+                      aria-hidden="true"
+                      className="transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none"
+                    />
+                    Technical details
+                  </summary>
+
+                  <div className="mt-4 space-y-5">
+                    {project.pipeline ? (
+                      <div>
+                        <h4 className="label">Pipeline</h4>
+                        <ol className="mt-3 flex flex-wrap items-center gap-2 font-mono text-xs">
+                          {project.pipeline.map((step, index) => (
+                            <li key={step} className="flex items-center gap-2">
+                              <span className="rounded-md border border-divider-strong bg-raised px-2.5 py-1.5 text-body">
+                                <span className="text-muted">{index + 1}.</span> {step}
+                              </span>
+                              {index < project.pipeline!.length - 1 ? (
+                                <span aria-hidden="true" className="text-muted">
+                                  →
+                                </span>
+                              ) : null}
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    ) : null}
+
+                    {project.details ? (
+                      <dl className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                        {project.details.map((detail) => (
+                          <div key={detail.label}>
+                            <dt className="label">{detail.label}</dt>
+                            <dd className="mt-1 text-sm leading-6 text-body">{detail.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    ) : null}
+
+                    {project.note ? <p className="text-xs leading-5 text-muted">{project.note}</p> : null}
+                  </div>
+                </details>
+              ) : null}
             </article>
           ))}
         </div>
       </div>
-    </MotionSection>
+    </section>
   );
 }
