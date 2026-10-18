@@ -31,9 +31,10 @@ export default function Hero() {
 
           <p className="mt-6 max-w-[62ch] text-base leading-7 text-secondary">
             I study Computer Engineering at the Lebanese American University alongside a second degree in
-            Electronics at the Lebanese University. I build software that connects to real systems: IoT camera pipelines,
-            document-automation services, and multi-agent applications. I&apos;m currently researching the outage
-            performance of energy-harvesting and hybrid-powered wireless relays.
+            Electronics at the Lebanese University. I work across software and hardware: IoT camera pipelines,
+            document-automation services, multi-agent applications, and an infrared heart-pulse monitor I built and
+            tested as a physical circuit. I&apos;m currently researching the outage performance of energy-harvesting and
+            hybrid-powered wireless relays.
           </p>
 
           <div className="mt-6 border-l-2 border-purple/70 pl-4">

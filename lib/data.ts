@@ -57,9 +57,18 @@ export type ProjectItem = {
   contributions: string[];
   outcome?: string;
   tech: string[];
+  pipelineLabel?: string;
   pipeline?: string[];
   details?: ProjectDetail[];
   note?: string;
+};
+
+export type OtherProject = {
+  title: string;
+  context: string;
+  dates: string;
+  summary: string;
+  tech: string[];
 };
 
 export type LeadershipRole = {
@@ -135,7 +144,7 @@ export const focusAreas: FocusArea[] = [
   },
   {
     title: "Electronics & wireless research",
-    description: "A second degree in Electronics; MATLAB analysis of relay systems."
+    description: "Analog circuits built and tested on hardware; MATLAB analysis of relay systems."
   }
 ];
 
@@ -255,6 +264,25 @@ export const projectItems: ProjectItem[] = [
     note: "Described at a general level. Company documents, data, and code are confidential."
   },
   {
+    id: "project-pulse",
+    title: "Infrared Heart-Pulse Monitoring System",
+    subtitle: "Optical pulse sensing and detection circuit, built and tested on hardware",
+    context: "Electronics project",
+    dates: "Spring 2026",
+    problemLabel: "Goal",
+    problem:
+      "Detect a heart pulse with infrared light and turn it into pulse indication, a threshold-based alarm, and heart-rate display logic.",
+    contributions: [
+      "Designed, physically built, and tested a heart-pulse monitoring circuit using an IR LED, a photodiode, analog filtering, op-amps, and comparator-based detection.",
+      "Simulated the analog and digital stages in LTspice and Proteus before implementation.",
+      "Integrated pulse indication, threshold-based buzzer activation, and display logic for heart-rate monitoring."
+    ],
+    outcome: "Built and tested as a physical circuit, not only in simulation.",
+    tech: ["IR LED", "Photodiode", "Op-Amps", "Analog Filtering", "Comparators", "LTspice", "Proteus"],
+    pipelineLabel: "Signal chain",
+    pipeline: ["IR LED + photodiode", "Analog filtering & op-amps", "Comparator detection", "Indication, buzzer & display"]
+  },
+  {
     id: "project-aura",
     title: "AURA: Augmented University Reality Assistant",
     subtitle: "AI-powered university teaching assistant",
@@ -276,20 +304,16 @@ export const projectItems: ProjectItem[] = [
       { label: "Vision", value: "Hand-raise detection and attendance" },
       { label: "Services", value: "Modular FastAPI services connecting the components" }
     ]
-  },
+  }
+];
+
+export const otherProjects: OtherProject[] = [
   {
-    id: "project-wefe",
     title: "WEFE Stress Early-Warning System",
-    subtitle: "Machine learning on satellite and environmental data",
     context: "Machine learning project · Completed",
     dates: "Aug 2025 – Dec 2025",
-    problemLabel: "Goal",
-    problem:
-      "Forecast WEFE stress from satellite-derived environmental indicators to support early warning.",
-    contributions: [
-      "Built a data pipeline combining NDVI, NDTI, rainfall, and VIIRS indicators into a composite WEFE stress index.",
-      "Trained Linear Regression and Random Forest models for stress forecasting."
-    ],
+    summary:
+      "Built a data pipeline combining NDVI, NDTI, rainfall, and VIIRS satellite indicators into a composite WEFE stress index, and trained Linear Regression and Random Forest models for stress forecasting.",
     tech: ["Random Forest", "Linear Regression", "Satellite Data", "Data Pipelines"]
   }
 ];
@@ -306,6 +330,10 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Backend & Data",
     items: ["FastAPI", "REST APIs", "WebSockets", "Microservices", "PostgreSQL", "pgvector", "Prisma", "Data Pipelines"]
+  },
+  {
+    category: "Electronics",
+    items: ["LTspice", "Proteus", "Analog Circuit Design", "Op-Amps & Comparators", "Circuit Prototyping & Testing"]
   },
   {
     category: "Development Tools",

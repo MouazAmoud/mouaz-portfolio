@@ -66,6 +66,8 @@ const personJsonLd = {
   ],
   knowsAbout: [
     "Computer Engineering",
+    "Electronics",
+    "Analog Circuit Design",
     "Software Engineering",
     "Machine Learning",
     "Computer Vision",

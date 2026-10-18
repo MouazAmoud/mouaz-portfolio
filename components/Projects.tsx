@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import TechList from "@/components/TechList";
-import { projectItems } from "@/lib/data";
+import { otherProjects, projectItems } from "@/lib/data";
 
 export default function Projects() {
   return (
@@ -10,7 +10,7 @@ export default function Projects() {
         <SectionHeading
           id="projects-title"
           title="Selected Projects"
-          description="What each project set out to solve, what I built, and the result where one was measured."
+          description="Software, hardware, and AI work: what each project set out to do, what I built, and the result."
         />
 
         <div className="mt-12 space-y-6">
@@ -73,7 +73,7 @@ export default function Projects() {
                   <div className="mt-4 space-y-5">
                     {project.pipeline ? (
                       <div>
-                        <h4 className="label">Pipeline</h4>
+                        <h4 className="label">{project.pipelineLabel ?? "Pipeline"}</h4>
                         <ol className="mt-3 flex flex-wrap items-center gap-2 font-mono text-xs">
                           {project.pipeline.map((step, index) => (
                             <li key={step} className="flex items-center gap-2">
@@ -109,6 +109,31 @@ export default function Projects() {
             </article>
           ))}
         </div>
+
+        {otherProjects.length > 0 ? (
+          <div className="mt-12">
+            <h3 className="label">Other projects</h3>
+            <ul className="mt-4 divide-y divide-divider border-y border-divider">
+              {otherProjects.map((project) => (
+                <li
+                  key={project.title}
+                  className="reveal grid gap-3 py-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)] lg:gap-10"
+                >
+                  <div>
+                    <h4 className="font-display text-base font-semibold text-heading sm:text-lg">{project.title}</h4>
+                    <p className="mt-1 font-mono text-xs text-muted">
+                      {project.context} · <span className="whitespace-nowrap">{project.dates}</span>
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm leading-6 text-secondary sm:text-[0.95rem] sm:leading-7">{project.summary}</p>
+                    <TechList items={project.tech} className="mt-3" />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
     </section>
   );
